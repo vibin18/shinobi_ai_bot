@@ -18,6 +18,7 @@ type opts struct {
 	DoodsServer     string  `           long:"server"      env:"DOODS_SERVER"  description:"Server name or IP of doods2 server and port number" default:"192.168.178.81:8099"`
 	DiscordToken    string  `           long:"token"      env:"DISCORD_TOKEN"  description:"Discord Webhook token"`
 	WebhookId       uint64  `           long:"webhook"      env:"DISCORD_WEBHOOK_ID"  description:"Discord Webhook ID"`
+	DetectorName    string  `long:"detector" env:"DETECTOR_NAME" description:"doods2 supports tflite, tensorflow, pytorch. If not specified,'default' will be used if it exists"`
 	MinConfidence   float64 `           long:"mincon"      env:"MINIMUM_CONFIDENCE"  description:"Minimum confidence level and Max is 100" default:"50"`
 	CameraId        string  `            long:"camera"      env:"CAMERA_NAME"  description:"Name of the camera" required:"false"`
 	ShinobiExporter string  `       long:"exporter"      env:"SHINOBI_EXPORTER"  description:"Server name or IP of shinobi_exporter and port number" required:"false"`
@@ -88,7 +89,7 @@ func main() {
 		log.Panicf("Byte conversion failed!")
 	}
 
-	err, result := DetectImage(byteImage, minConfidence)
+	err, result := DetectImage(byteImage, minConfidence, arg.DetectorName)
 	if err != nil {
 		log.Panicf("Failed to detect image")
 	}

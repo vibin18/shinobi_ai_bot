@@ -93,11 +93,11 @@ func (c *RequestData) SetThrottle(val int) {
 }
 
 //func DetectImage(imageFile string, minProb int64, wg *sync.WaitGroup) (error, ResponseData ) {
-func DetectImage(imageFile []byte, minProb float64) (error, ResponseData) {
+func DetectImage(imageFile []byte, minProb float64, detectorType string) (error, ResponseData) {
 	var ret ResponseData
 	con := NewRequestData()
 	con.SetFiledata(imageFile)
-	con.Setdetector_name("default")
+	con.Setdetector_name(detectorType)
 	con.SetdetectOption(minProb)
 	con.SetId("123")
 	con.SetImageType("jpeg")
