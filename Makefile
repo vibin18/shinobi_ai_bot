@@ -1,5 +1,5 @@
 PROJECT_NAME		:= shinobi-ai-bot
-HOST_DIRECTORY		:= test
+HOST_DIRECTORY		:= output
 GIT_TAG				:= $(shell git describe --dirty --tags --always)
 GIT_COMMIT			:= $(shell git rev-parse --short HEAD)
 LDFLAGS				:= -X "main.gitTag=$(GIT_TAG)" -X "main.gitCommit=$(GIT_COMMIT)" -linkmode external -extldflags "-static" -s -w
@@ -26,7 +26,7 @@ vendor:
 
 .PHONY: image
 image:
-	docker build --output type=local,dest=$(HOST_DIRECTORY) .
+	 DOCKER_BUILDKIT=1 docker build --output $(HOST_DIRECTORY) .
 
 .PHONY: test
 test:
